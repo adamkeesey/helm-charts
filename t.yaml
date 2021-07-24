@@ -1,4 +1,4 @@
-image:
+image: 
   repository: registry.gitlab.com/dhak/api:04d52174
 imagePullSecrets:
   - name: regcred
