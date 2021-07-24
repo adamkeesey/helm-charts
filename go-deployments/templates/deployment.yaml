@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "go-deployments.fullname" . }}
+  name: {{ include "go-deployments.name" . }}
   labels:
     {{- include "go-deployments.labels" . | nindent 4 }}
 spec:
