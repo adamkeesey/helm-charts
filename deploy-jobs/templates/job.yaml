@@ -19,4 +19,7 @@ spec:
       - name: {{ include "deploy-jobs.name" . }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
       restartPolicy: Never
+      envFrom:
+      - configMapRef:
+          name: {{ include "deploy-jobs.name" . }}-env
   backoffLimit: 1
