@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: {{ include "deploy-jobs.name" . }}-{{ .Values.image.tag }}
+  name: {{ include "deploy-jobs.name" . }}
   labels:
     {{- include "deploy-jobs.labels" . | nindent 4 }}
   annotations:
