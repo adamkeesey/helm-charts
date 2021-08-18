@@ -18,8 +18,9 @@ spec:
       containers:
       - name: {{ include "deploy-jobs.name" . }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-      restartPolicy: Never
-      envFrom:
-      - configMapRef:
+        envFrom:
+        - configMapRef:
           name: {{ include "deploy-jobs.name" . }}-env
+      restartPolicy: Never
+
   backoffLimit: 1
