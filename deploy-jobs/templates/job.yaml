@@ -1,0 +1,22 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "deploy-jobs.name" . }}-{{ .Values.image.tag }}
+  labels:
+    {{- include "deploy-jobs.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": pre-install
+    "helm.sh/hook-weight": "1"
+    "helm.sh/hook-delete-policy": hook-succeeded
+spec:
+  template:
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+      - name: {{ include "deploy-jobs.name" . }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+      restartPolicy: OnFailure
+  backoffLimit: 1
