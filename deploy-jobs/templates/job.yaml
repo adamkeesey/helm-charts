@@ -20,7 +20,7 @@ spec:
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         envFrom:
         - configMapRef:
-          name: {{ include "deploy-jobs.name" . }}-env
+            name: {{ include "deploy-jobs.name" . }}-env
       restartPolicy: Never
 
   backoffLimit: 1
