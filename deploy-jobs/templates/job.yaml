@@ -22,5 +22,4 @@ spec:
         - configMapRef:
             name: {{ include "deploy-jobs.name" . }}-env
       restartPolicy: Never
-
-  backoffLimit: 1
+  backoffLimit: 0
