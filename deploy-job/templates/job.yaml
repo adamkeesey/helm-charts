@@ -1,9 +1,10 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: {{ include "deploy-jobs.name" . }}
+  name: {{ include "deploy-job.name" . }}
   labels:
-    {{- include "deploy-jobs.labels" . | nindent 4 }}
+    {{- include "deploy-job.labels" . | nindent 4 }}
+    app.kubernetes.io/role: deploy-job
   annotations:
     "helm.sh/hook": post-install
     "helm.sh/hook-weight": "4"
@@ -16,10 +17,10 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       containers:
-      - name: {{ include "deploy-jobs.name" . }}
+      - name: {{ include "deploy-job.name" . }}
         image: "{{ .Values.image }}"
         envFrom:
         - configMapRef:
-            name: {{ include "deploy-jobs.name" . }}-env
+            name: {{ include "deploy-job.name" . }}-env
       restartPolicy: {{ .Values.restartPolicy | default "Never" }}
   backoffLimit: {{ .Values.backoffLimit | default 0 }}
