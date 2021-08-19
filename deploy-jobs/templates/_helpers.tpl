@@ -2,7 +2,7 @@
 Expand the name of the chart.
 */}}
 {{- define "deploy-jobs.name" -}}
-{{- default .Release.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
+{{- .Release.Name | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
@@ -48,15 +48,4 @@ Selector labels
 {{- define "deploy-jobs.selectorLabels" -}}
 app.kubernetes.io/name: {{ include "deploy-jobs.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
-{{- end }}
-
-{{/*
-Create the name of the service account to use
-*/}}
-{{- define "deploy-jobs.serviceAccountName" -}}
-{{- if .Values.serviceAccount.create }}
-{{- default (include "deploy-jobs.fullname" .) .Values.serviceAccount.name }}
-{{- else }}
-{{- default "default" .Values.serviceAccount.name }}
-{{- end }}
 {{- end }}
